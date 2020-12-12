@@ -8,6 +8,7 @@ import { FindRecordResponseDto } from '../dtos/find-record-response.dto';
 @ApiTags('Records')
 @Controller('records')
 export class RecordsController {
+
   constructor(private readonly recordsService: RecordsService) {}
 
   @Post()
@@ -17,4 +18,5 @@ export class RecordsController {
   getRecords(@Body() findRecordDto: FindRecordDto): Promise<FindRecordResponseDto> {
     return this.recordsService.findAll(findRecordDto);
   }
+  
 }

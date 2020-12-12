@@ -6,6 +6,7 @@ export type RecordDocument = Record & Document;
 
 @Schema()
 export class Record {
+  
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true })
   _id: mongoose.Schema.Types.ObjectId;
 

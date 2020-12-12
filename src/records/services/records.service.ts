@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { FindRecordDto } from '../dtos/find-record.dto';
 import { FindRecordResponseDto } from '../dtos/find-record-response.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -10,6 +10,7 @@ export class RecordsService {
 
   constructor(@InjectModel('Record') private recordModel: Model<RecordDocument>) { }
 
+  // Find all the records that match the condition specified in findRecord
   async findAll(findRecord: FindRecordDto): Promise<FindRecordResponseDto> {
     try {
       let records: RecordDocument[] = (await this.recordModel.find({
@@ -34,11 +35,14 @@ export class RecordsService {
         })
       };
     } catch (error) {
+      // In case of an error return the following object.
       return {
         code: 1,
-        message: `Internal server error. ${error.error}`,
+        message: `Internal server error. ${error}`,
         records: []
       };
+      // We can also throw an InternalServerErrorException
+      // throw new InternalServerErrorException(`Internal server error :: findAll(findRecord: FindRecordDto) :: records.service.ts :: ${error.error}`);
     }
 
   }

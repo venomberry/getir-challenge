@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { RecordsModule } from './records/records.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://challengeUser:WUMglwNBaydH8Yvu@challenge-xzwqd.mongodb.net/getir-case-study?retryWrites=true'),
+    ConfigModule.forRoot({
+      envFilePath: 'getir.env',
+    }),
+    MongooseModule.forRoot(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_HOST}?retryWrites=true`),
     RecordsModule
   ],
   controllers: [],

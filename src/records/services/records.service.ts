@@ -15,8 +15,8 @@ export class RecordsService {
     try {
       let records: RecordDocument[] = (await this.recordModel.find({
         createdAt: {
-          $gte: new Date(findRecord.startDate),
-          $lt: new Date(findRecord.endDate)
+          $gte: findRecord.startDate,
+          $lt: findRecord.endDate
         }
       }).exec()).filter(record => {
         let counts = record.counts.reduce((total, value) => total + value);
